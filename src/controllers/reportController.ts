@@ -5,6 +5,7 @@ import ErrorHandler from '@errors/errorHandler'
 import { deleteImages, handleItems } from '@utils/reportHandler'
 import { Costumer } from '@models/Costumer'
 import { ReportItem } from '@models/ReportItem'
+import { renderManyReport, renderReport } from 'src/view/report'
 
 class ReportController {
 	public async index (
@@ -14,8 +15,10 @@ class ReportController {
 	): Promise<Response | void> {
 		const reportRepository = getRepository(Report)
 		try {
-			const reports = await reportRepository.find()
-			return res.send({ reports })
+			const reports = await reportRepository.find({
+				relations: ['costumer']
+			})
+			return res.send(renderManyReport(reports))
 		} catch {
 			return next(new ErrorHandler())
 		}
@@ -45,7 +48,7 @@ class ReportController {
 		try {
 			const costumer = await costumerRepository.findOne(costumerId)
 			if (!costumer) {
-				return next(new ErrorHandler(400, 'Costumer not found'))
+				return next(new ErrorHandler(400, 'Costumer does not exist'))
 			}
 
 			const report = await reportRepository.save({
@@ -58,7 +61,7 @@ class ReportController {
 				costumer
 			})
 
-			res.send({ report })
+			return res.send(renderReport(report))
 		} catch {
 			next(new ErrorHandler())
 		}
@@ -81,7 +84,7 @@ class ReportController {
 				return next(new ErrorHandler(400, 'Report does not exist'))
 			}
 
-			return res.send({ report })
+			return res.send(renderReport(report))
 		} catch {
 			return next(new ErrorHandler())
 		}
@@ -122,7 +125,7 @@ class ReportController {
 
 			const costumer = await costumerRepository.findOne(costumerId)
 			if (!costumer) {
-				return next(new ErrorHandler(400, 'Costumer not found'))
+				return next(new ErrorHandler(400, 'Costumer does not exist'))
 			}
 
 			const data = {
@@ -138,7 +141,7 @@ class ReportController {
 
 			const report = await reportRepository.save(data)
 
-			res.send({ report })
+			return res.send(renderReport(report))
 		} catch {
 			next(new ErrorHandler())
 		}
