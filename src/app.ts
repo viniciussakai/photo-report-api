@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import database from './database'
 import { handleError } from '@errors/errorHandler'
 import costumer from '@routes/costumer'
@@ -19,6 +20,7 @@ class App {
     }
 
     private middleware (): void {
+    	this.express.use(cors())
     	this.express.use(express.json())
     }
 
