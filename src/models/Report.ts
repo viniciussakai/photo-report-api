@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 import { BaseModel } from './BaseModel'
+import { Costumer } from './Costumer'
 import { ReportItem } from './ReportItem'
 
 @Entity('reports')
@@ -21,7 +22,14 @@ export class Report extends BaseModel {
 
 	@OneToMany(
 		() => ReportItem,
-	 reportItem => reportItem.report
+	 reportItem => reportItem.report, { cascade: true }
 	)
 	public reportItem:ReportItem[]
+
+	@OneToOne(
+		() => Costumer,
+		costumer => costumer.report
+	)
+	@JoinColumn()
+	public costumer:Costumer
 }

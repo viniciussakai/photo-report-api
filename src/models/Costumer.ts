@@ -1,6 +1,7 @@
 import { Column, Entity, OneToOne } from 'typeorm'
 import { Address } from './Address'
 import { BaseModel } from './BaseModel'
+import { Report } from './Report'
 
 @Entity('costumers')
 export class Costumer extends BaseModel {
@@ -26,5 +27,11 @@ export class Costumer extends BaseModel {
 		() => Address,
 		address => address.costumer, { cascade: true }
 	)
-  address?: Address;
+	address?: Address;
+
+	@OneToOne(
+		() => Report,
+		report => report.costumer, { cascade: true }
+	)
+	public report?: Report;
 }
