@@ -2,6 +2,7 @@ import express from 'express'
 import database from './database'
 import { handleError } from '@errors/errorHandler'
 import costumer from '@routes/costumer'
+import report from '@routes/report'
 
 class App {
     public express:express.Application
@@ -23,6 +24,7 @@ class App {
 
     private routes ():void {
     	this.express.use('/costumer', costumer)
+    	this.express.use('/report', report)
     }
 
     private error (): void {
