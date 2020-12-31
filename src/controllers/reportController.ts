@@ -14,10 +14,12 @@ class ReportController {
 		next:NextFunction
 	): Promise<Response | void> {
 		const reportRepository = getRepository(Report)
+
 		try {
 			const reports = await reportRepository.find({
 				relations: ['costumer']
 			})
+
 			return res.send(renderManyReport(reports))
 		} catch {
 			return next(new ErrorHandler())
@@ -47,6 +49,7 @@ class ReportController {
 
 		try {
 			const costumer = await costumerRepository.findOne(costumerId)
+
 			if (!costumer) {
 				return next(new ErrorHandler(400, 'Costumer does not exist'))
 			}
@@ -100,6 +103,7 @@ class ReportController {
 		const costumerRepository = getRepository(Costumer)
 
 		const { id } = req.params
+
 		const {
 			costumerId,
 			reference,
@@ -117,6 +121,7 @@ class ReportController {
 			const previousItems = await reportItemRepository.find({
 				report: { id: Number(id) }
 			})
+
 			await deleteImages(previousItems)
 
 			await reportItemRepository.delete({
@@ -167,7 +172,7 @@ class ReportController {
 				id: Number(id)
 			})
 
-			res.sendStatus(200)
+			return res.sendStatus(200)
 		} catch {
 			next(new ErrorHandler())
 		}
