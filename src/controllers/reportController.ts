@@ -62,6 +62,29 @@ class ReportController {
 			next(new ErrorHandler())
 		}
 	}
+
+	public async show (
+		req:Request,
+		res:Response,
+		next:NextFunction
+	): Promise<Response | void> {
+		const reportRepository = getRepository(Report)
+		const { id } = req.params
+
+		try {
+			const report = await reportRepository.findOne(id, {
+				relations: ['reportItem']
+			})
+
+			if (!report) {
+				return next(new ErrorHandler(400, 'Report does not exist'))
+			}
+
+			return res.send({ report })
+		} catch {
+			return next(new ErrorHandler())
+		}
+	}
 }
 
 export default new ReportController()

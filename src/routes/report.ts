@@ -10,5 +10,6 @@ routes.post(
 	'/', multer(multerConfig).array('files'),
 	reportController.store
 )
+routes.get('/:id', reportController.show)
 
 export default routes
