@@ -16,4 +16,6 @@ routes.put(
 	reportController.update
 )
 
+routes.delete('/:id', reportController.delete)
+
 export default routes

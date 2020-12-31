@@ -143,6 +143,32 @@ class ReportController {
 			next(new ErrorHandler())
 		}
 	}
+
+	public async delete (
+		req:Request,
+		res:Response,
+		next:NextFunction
+	): Promise<Response | void> {
+		const reportRepository = getRepository(Report)
+		const reportItemRepository = getRepository(ReportItem)
+
+		const { id } = req.params
+
+		try {
+			const previousItems = await reportItemRepository.find({
+				report: { id: Number(id) }
+			})
+			await deleteImages(previousItems)
+
+			await reportRepository.delete({
+				id: Number(id)
+			})
+
+			res.sendStatus(200)
+		} catch {
+			next(new ErrorHandler())
+		}
+	}
 }
 
 export default new ReportController()
