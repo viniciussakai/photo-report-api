@@ -21,15 +21,11 @@ export class createReport1609286876191 implements MigrationInterface {
 					name: 'location',
 					type: 'varchar'
 				}, {
-					name: 'observation',
+					name: 'startText',
 					type: 'text',
 					isNullable: true
 				}, {
-					name: 'recomendation',
-					type: 'text',
-					isNullable: true
-				}, {
-					name: 'consideration',
+					name: 'endText',
 					type: 'text',
 					isNullable: true
 				}, {
