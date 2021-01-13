@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 import database from './database'
 import { handleError } from '@errors/errorHandler'
 import costumer from '@routes/costumer'
@@ -22,6 +23,9 @@ class App {
     private middleware (): void {
     	this.express.use(cors())
     	this.express.use(express.json())
+    	this.express.use('/files/uploads',
+			 express.static(path.resolve(__dirname, '..', 'uploads'))
+    	)
     }
 
     private routes ():void {
