@@ -80,7 +80,7 @@ class ReportController {
 
 		try {
 			const report = await reportRepository.findOne(id, {
-				relations: ['reportItem']
+				relations: ['reportItem', 'costumer', 'costumer.address']
 			})
 
 			if (!report) {
@@ -89,7 +89,7 @@ class ReportController {
 
 			return res.send(renderReport(report))
 		} catch {
-			return next(new ErrorHandler())
+			next(new ErrorHandler())
 		}
 	}
 

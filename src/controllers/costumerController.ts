@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm'
 import { Costumer } from '@models/Costumer'
 import { Address } from '@models/Address'
 import ErrorHandler from '@errors/errorHandler'
+import { renderCostumer, renderManyCostumer } from 'src/view/costumer'
 
 class CostumerController {
 	public async index (
@@ -13,7 +14,7 @@ class CostumerController {
 		const costumerRepository = getRepository(Costumer)
 		try {
 			const costumers = await costumerRepository.find()
-			return res.send({ costumers })
+			return res.send(renderManyCostumer(costumers))
 		} catch {
 			return next(new ErrorHandler())
 		}
@@ -49,7 +50,7 @@ class CostumerController {
 
 			return res
 				.status(201)
-				.send({ costumer })
+				.send(renderCostumer(costumer))
 		} catch {
 			return next(new ErrorHandler())
 		}
@@ -67,7 +68,7 @@ class CostumerController {
 				relations: ['address']
 			})
 
-			return res.send({ costumer })
+			return res.send(renderCostumer(costumer))
 		} catch {
 			return next(new ErrorHandler())
 		}
@@ -114,7 +115,7 @@ class CostumerController {
 				 ...data
 			 })
 
-			return res.send({ costumer })
+			return res.send(renderCostumer(costumer))
 		} catch {
 			return next(new ErrorHandler())
 		}
