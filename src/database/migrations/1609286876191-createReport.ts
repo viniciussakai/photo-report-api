@@ -15,6 +15,12 @@ export class createReport1609286876191 implements MigrationInterface {
 					name: 'costumerId',
 					type: 'int'
 				}, {
+					name: 'title',
+					type: 'varchar'
+				}, {
+					name: 'requester',
+					type: 'varchar'
+				}, {
 					name: 'reference',
 					type: 'varchar'
 				}, {

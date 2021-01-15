@@ -36,11 +36,12 @@ class ReportController {
 
 		const {
 			costumerId,
+			title,
+			requester,
 			reference,
 			location,
-			observation,
-			recomendation,
-			consideration,
+			startText,
+			endText,
 			subtitles
 		} = req.body
 
@@ -55,11 +56,12 @@ class ReportController {
 			}
 
 			const report = await reportRepository.save({
+				title,
+				requester,
 				reference,
 				location,
-				observation,
-				recomendation,
-				consideration,
+				startText,
+				endText,
 				reportItem,
 				costumer
 			})
@@ -106,11 +108,12 @@ class ReportController {
 
 		const {
 			costumerId,
+			title,
+			requester,
 			reference,
 			location,
-			observation,
-			recomendation,
-			consideration,
+			startText,
+			endText,
 			subtitles
 		} = req.body
 
@@ -135,11 +138,12 @@ class ReportController {
 
 			const data = {
 				id: Number(id),
+				title,
+				requester,
 				reference,
 				location,
-				observation,
-				recomendation,
-				consideration,
+				startText,
+				endText,
 				reportItem,
 				costumer
 			}

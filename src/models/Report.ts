@@ -12,13 +12,16 @@ export class Report extends BaseModel {
 	public location:string
 
 	@Column()
-	public observation:string
+	public title:string
 
 	@Column()
-	public recomendation:string
+	public requester:string
 
 	@Column()
-	public consideration:string
+	public startText:string
+
+	@Column()
+	public endText:string
 
 	@OneToMany(
 		() => ReportItem,
