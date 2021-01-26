@@ -26,9 +26,7 @@ export const renderManyReport = (reports:Report[]) => {
 			costumer: report.costumer.name,
 			requester: report.requester,
 			reference: report.reference,
-			location: report.location,
-			startText: report.startText,
-			endText: report.endText
+			location: report.location
 		}
 	})
 }
